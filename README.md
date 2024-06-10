@@ -48,7 +48,7 @@
 
 Chat UI that connects to the local [Ollama](https://ollama.com/) AI
 
-<img src="public/screenshot.png" width="500" height="500" alt="screenshot" />
+<img src="public/screenshot.png" width="600" alt="screenshot" />
 
 ## :sparkles: Features
 
