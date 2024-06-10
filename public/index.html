@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Chat Interface</title>
+    <!-- Tailwind CSS CDN -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="bg-gray-100 flex items-center justify-center h-screen sm:p-4 md:p-8 lg:p-16"
+  >
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full">
+      <h1 class="text-2xl font-bold mb-4">Chat with AI</h1>
+      <div
+        id="chat-container"
+        class="h-80 overflow-y-auto mb-4 p-2 border border-gray-300 rounded"
+      >
+        <!-- Chat messages will be appended here -->
+      </div>
+      <form id="chat-form" class="flex">
+        <input
+          id="chat-input"
+          type="text"
+          class="flex-grow p-2 border border-gray-300 rounded-l focus:outline-none"
+          placeholder="Type your message..."
+        />
+        <button type="submit" class="bg-blue-500 text-white p-2 rounded-r">
+          Send
+        </button>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById('chat-form')
+        .addEventListener('submit', async (event) => {
+          event.preventDefault();
+          const inputElement = document.getElementById('chat-input');
+          const userMessage = inputElement.value;
+
+          if (userMessage.trim() === '') return;
+
+          appendMessage('user', userMessage);
+          inputElement.value = '';
+
+          try {
+            const response = await fetch('http://localhost:11434/api/chat', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                model: 'llama3',
+                messages: [{ role: 'user', content: userMessage }],
+                stream: true,
+              }),
+            });
+
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder('utf-8');
+            let output = '';
+            let messageElement = appendMessage('ai', '', true);
+
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+
+              const chunk = decoder.decode(value, { stream: true });
+              const lines = chunk.split('\n');
+
+              for (const line of lines) {
+                if (line.trim()) {
+                  const body = JSON.parse(line);
+                  if (body.error) {
+                    throw new Error(body.error);
+                  }
+                  if (body.done === false) {
+                    const content = body.message.content || '';
+                    output += content;
+                    updateMessage(messageElement, output);
+                  }
+                  if (body.done === true) {
+                    updateMessage(messageElement, output);
+                    break;
+                  }
+                }
+              }
+            }
+          } catch (error) {
+            console.error('Error:', error);
+            appendMessage('ai', 'Error: ' + error.message);
+          }
+        });
+
+      function appendMessage(role, content, isStreaming = false) {
+        const chatContainer = document.getElementById('chat-container');
+        let messageElement = document.createElement('div');
+        messageElement.classList.add(
+          'my-2',
+          'p-2',
+          'rounded',
+          'max-w-md',
+          'clear-both'
+        );
+
+        if (role === 'user') {
+          messageElement.classList.add('bg-blue-100', 'self-end', 'ml-auto');
+        } else {
+          messageElement.classList.add('bg-gray-100');
+        }
+
+        messageElement.textContent = content;
+
+        if (isStreaming) {
+          messageElement.classList.add('streaming');
+        }
+
+        chatContainer.appendChild(messageElement);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+
+        return messageElement;
+      }
+
+      function updateMessage(element, content) {
+        element.textContent = content;
+      }
+    </script>
+  </body>
+</html>
