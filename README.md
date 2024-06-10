@@ -9,25 +9,25 @@
 <h1 align="center">Local AI</h1>
 
 <p align="center">
-  <img alt="Github top language" src="https://img.shields.io/github/languages/top/lucasluizss/ollama?color=56BEB8">
+  <img alt="Github top language" src="https://img.shields.io/github/languages/top/lucasluizss/local-ai?color=56BEB8">
 
-  <img alt="Github language count" src="https://img.shields.io/github/languages/count/lucasluizss/ollama?color=56BEB8">
+  <img alt="Github language count" src="https://img.shields.io/github/languages/count/lucasluizss/local-ai?color=56BEB8">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/lucasluizss/ollama?color=56BEB8">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/lucasluizss/local-ai?color=56BEB8">
 
-  <img alt="License" src="https://img.shields.io/github/license/lucasluizss/ollama?color=56BEB8">
+  <img alt="License" src="https://img.shields.io/github/license/lucasluizss/local-ai?color=56BEB8">
 
-  <!-- <img alt="Github issues" src="https://img.shields.io/github/issues/lucasluizss/ollama?color=56BEB8" /> -->
+  <!-- <img alt="Github issues" src="https://img.shields.io/github/issues/lucasluizss/local-ai?color=56BEB8" /> -->
 
-  <!-- <img alt="Github forks" src="https://img.shields.io/github/forks/lucasluizss/ollama?color=56BEB8" /> -->
+  <!-- <img alt="Github forks" src="https://img.shields.io/github/forks/lucasluizss/local-ai?color=56BEB8" /> -->
 
-  <!-- <img alt="Github stars" src="https://img.shields.io/github/stars/lucasluizss/ollama?color=56BEB8" /> -->
+  <!-- <img alt="Github stars" src="https://img.shields.io/github/stars/lucasluizss/local-ai?color=56BEB8" /> -->
 </p>
 
 <!-- Status -->
 
 <!-- <h4 align="center">
-	🚧  Ollama 🚀 Under construction...  🚧
+	🚧  Local AI 🚀 Under construction...  🚧
 </h4>
 
 <hr> -->
