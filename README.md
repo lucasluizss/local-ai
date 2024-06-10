@@ -48,6 +48,8 @@
 
 Chat UI that connects to the local [Ollama](https://ollama.com/) AI
 
+<img src="public/screenshot.png" width="500" height="500" alt="screenshot" />
+
 ## :sparkles: Features
 
 :heavy_check_mark: Responsive Chat UI;\
